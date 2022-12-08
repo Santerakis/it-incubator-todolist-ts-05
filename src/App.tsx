@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Todolist} from './Todolist';
+import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 
 export type FilterValuesType = "all" | "active" | "completed";
@@ -10,7 +10,9 @@ type TodolistsType ={
     title: string
     filter: FilterValuesType
 }
-
+type TaskStateType ={
+    [key:string]:TaskType[]
+}
 function App() {
     let todolistID1 = v1()
     let todolistID2 = v1()
@@ -20,7 +22,7 @@ function App() {
         {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
 
-    let [tasks, setTasks] = useState({
+    let [tasks, setTasks] = useState<TaskStateType>({
         [todolistID1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
             {id: v1(), title: 'JS', isDone: true},
@@ -33,7 +35,32 @@ function App() {
         ]
     })
 
+    // let todolistId1 = v1();
+    // let todolistId2 = v1();
     //
+    // let [todolists, setTodolists] = useState<Array<TodolistType>>([
+    //     {id: todolistId1, title: "What to learn"},
+    //     {id: todolistId2, title: "What to buy"}
+    // ])
+    //
+    // let [tasks, setTasks] = useState<TasksStateType>({
+    //     [todolistId1]:{
+    //         data:[
+    //             {id: v1(), title: "HTML&CSS1111", isDone: true},
+    //             {id: v1(), title: "JS1111", isDone: true}
+    //         ],
+    //         filter: "all"
+    //     } ,
+    //     [todolistId2]:{
+    //         data:[
+    //             {id: v1(), title: "HTML&CSS22222", isDone: true},
+    //             {id: v1(), title: "JS2222", isDone: true}
+    //         ],
+    //         filter: "all"
+    //     }
+    // });
+
+  ///////////////////////////////////////////////////////////
     // let [todolists, setTodolists] = useState<TodolistsType[]>([
     //         {id: v1(), title: 'What to learn', filter: 'active'},
     //         {id: v1(), title: 'What to buy', filter: 'all'},
@@ -47,6 +74,7 @@ function App() {
     //     {id: v1(), title: "GraphQL", isDone: false},
     // ]);
     // let [filter, setFilter] = useState<FilterValuesType>("all");
+///////////////////////////////////////////////////
 
     const removeTodolist=(todolistID:string)=>{
         setTodolists(todolists.filter(el=>el.id!==todolistID))
